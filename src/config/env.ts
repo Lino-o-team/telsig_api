@@ -21,13 +21,14 @@ export const config = {
   security: {
     rateLimitWindowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10),
     rateLimitMaxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100', 10),
-    corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    corsOrigin: process.env.CORS_ORIGIN?.split(',').map(o => o.trim()) || ['http://localhost:3000'],
+    apiKey: process.env.API_KEY || '',
   },
 };
 
 // Validation des variables d'environnement requises
 export function validateConfig(): void {
-  const requiredEnvVars = ['SMTP_USER', 'SMTP_PASS'];
+  const requiredEnvVars = ['SMTP_USER', 'SMTP_PASS', 'API_KEY'];
   const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
   
   if (missingVars.length > 0) {

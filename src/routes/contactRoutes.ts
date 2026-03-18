@@ -63,7 +63,7 @@ export function createContactRoutes(mailService: MailService): Router {
 
       // Préparer les données du mail
       const mailData = {
-        to: 'info-contact@telsig.net',
+        to: 'contact@staging.telsig.net',
         subject: `[Contact Telsig] ${contactData.subject}`,
         text: textContent,
         html: htmlContent,

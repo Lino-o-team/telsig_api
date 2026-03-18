@@ -6,6 +6,7 @@ import { config, validateConfig } from './config/env';
 import { MailService } from './services/mailService';
 import { createMailRoutes } from './routes/mailRoutes';
 import { createContactRoutes } from './routes/contactRoutes';
+import { apiKeyMiddleware } from './middleware/apiKey';
 
 async function startServer(): Promise<void> {
   try {
@@ -50,6 +51,7 @@ async function startServer(): Promise<void> {
     }
     
     // Routes
+    app.use('/api', apiKeyMiddleware);
     app.use('/api/mail', createMailRoutes(mailService));
     app.use('/api', createContactRoutes(mailService));
     
